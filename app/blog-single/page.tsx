@@ -1,7 +1,9 @@
 'use client'
 import { useState } from 'react'
-import ModalVideo from 'react-modal-video'
-import "@/node_modules/react-modal-video/css/modal-video.css"
+import ModalVideo from 'react-modal-video';
+import 'react-modal-video/css/modal-video.css';
+import '@/node_modules/react-modal-video/css/modal-video.css';
+
 import Countdown from '@/components/elements/Countdown'
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
