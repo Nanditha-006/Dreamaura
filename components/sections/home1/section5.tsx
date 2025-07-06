@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { Autoplay, Navigation, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import "@/node_modules/react-modal-video/css/modal-video.css"
+
 
 const swiperOptions = {
     modules: [Autoplay, Pagination, Navigation],
