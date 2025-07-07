@@ -2,12 +2,9 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
-import { Swiper as SwiperCore } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/autoplay';
-
-SwiperCore.use([Autoplay, EffectFade]);
 
 export default function BgSlider() {
   const bgImages = [
