@@ -1,6 +1,6 @@
 {
   "name": "eventify",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -34,5 +34,22 @@
     "eslint": "^9.30.1",
     "eslint-config-next": "^15.3.5",
     "typescript": "^5"
-  }
+  },
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next.js: debug development server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 9229,
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ]
 }

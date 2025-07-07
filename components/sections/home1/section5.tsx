@@ -63,9 +63,6 @@ export default function Section5() {
                                 <div className="space24" />
                                 <div className="auhtor-area">
                                     <div className="name-area">
-                                        <div className="img1">
-                                            <img src="/assets/img/all-images/testimonials/testimonial-img1.png" alt="Client Testimonial" />
-                                        </div>
                                         <div className="text">
                                             <Link href="/speakers">Hariharan</Link>
                                             <div className="space12" />
@@ -95,9 +92,6 @@ export default function Section5() {
                                 <div className="space24" />
                                 <div className="auhtor-area">
                                     <div className="name-area">
-                                        <div className="img1">
-                                            <img src="/assets/img/all-images/testimonials/testimonial-img2.png" alt="Client Testimonial" />
-                                        </div>
                                         <div className="text">
                                             <Link href="/speakers">Priya & Arjun</Link>
                                             <div className="space12" />
@@ -127,13 +121,10 @@ export default function Section5() {
                                 <div className="space24" />
                                 <div className="auhtor-area">
                                     <div className="name-area">
-                                        <div className="img1">
-                                            <img src="/assets/img/all-images/testimonials/testimonial-img3.png" alt="Client Testimonial" />
-                                        </div>
                                         <div className="text">
                                             <Link href="/speakers">Ramesh Kumar</Link>
                                             <div className="space12" />
-                                            <p>Infosys, Chennai</p>
+                                            <p>Geodis</p>
                                         </div>
                                     </div>
                                 </div>
@@ -159,9 +150,6 @@ export default function Section5() {
                                 <div className="space24" />
                                 <div className="auhtor-area">
                                     <div className="name-area">
-                                        <div className="img1">
-                                            <img src="/assets/img/all-images/testimonials/testimonial-img4.png" alt="Client Testimonial" />
-                                        </div>
                                         <div className="text">
                                             <Link href="/speakers">Meena S.</Link>
                                             <div className="space12" />
