@@ -1,17 +1,10 @@
 "use client";
 import React from "react";
-import Countdown from "@/components/elements/Countdown";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 
 export default function Contact() {
-  const [formData, setFormData] = React.useState<{
-    Name: string;
-    Email: string;
-    Phone: string;
-    Subject: string;
-    Message: string;
-  }>({
+  const [formData, setFormData] = React.useState({
     Name: "",
     Email: "",
     Phone: "",
@@ -19,13 +12,7 @@ export default function Contact() {
     Message: "",
   });
 
-  const [errors, setErrors] = React.useState<{
-    Name?: string;
-    Email?: string;
-    Phone?: string;
-    Subject?: string;
-    Message?: string;
-  }>({});
+  const [errors, setErrors] = React.useState({});
   const [message, setMessage] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -40,13 +27,7 @@ export default function Contact() {
   };
 
   const validate = () => {
-    const newErrors: {
-      Name?: string;
-      Email?: string;
-      Phone?: string;
-      Subject?: string;
-      Message?: string;
-    } = {};
+    const newErrors: any = {};
     if (!formData.Name.trim()) {
       newErrors.Name = "Name is required";
     } else if (!/^[A-Za-z ]+$/.test(formData.Name.trim())) {
@@ -99,8 +80,9 @@ export default function Contact() {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      const result = await response.json();
+      if (result.result !== "success") {
+        throw new Error(result.message || "Submission failed");
       }
 
       setMessage("✅ Your message has been sent successfully!");
@@ -112,7 +94,7 @@ export default function Contact() {
         Message: "",
       });
       setErrors({});
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error:", error);
       setMessage("❌ There was an error sending your message.");
     } finally {
@@ -122,262 +104,76 @@ export default function Contact() {
 
   return (
     <Layout headerStyle={1} footerStyle={1}>
-      <div>
-        {/* HERO */}
-        <div
-          className="inner-page-header"
-          style={{ backgroundImage: "url(assets/img/bg/header-bg12.png)" }}
-        >
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6 m-auto">
-                <div className="heading1 text-center">
-                  <h1>Contact Us</h1>
-                  <div className="space20" />
-                  <Link href="/">
-                    Home <i className="fa-solid fa-angle-right" />{" "}
-                    <span>Contact Us</span>
-                  </Link>
-                </div>
-              </div>
+      <div className="contact-inner-section sp1">
+        <div className="container">
+          <h2 className="text-center mb-5">📞 Get In Touch</h2>
+          <form onSubmit={handleSubmit} className="row">
+            <div className="col-md-6 mb-3">
+              <input
+                type="text"
+                name="Name"
+                placeholder="Name"
+                className="form-control"
+                value={formData.Name}
+                onChange={handleChange}
+              />
+              {errors.Name && <p style={{ color: "red" }}>{errors.Name}</p>}
             </div>
-          </div>
-        </div>
-
-        {/* CONTACT FORM */}
-        <div className="contact-inner-section sp1">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="img1 image-anime">
-                  <img
-                    src="/assets/img/all-images/contact/contact-img4.png"
-                    alt="Contact"
-                  />
-                </div>
-              </div>
-              <div
-                className="col-lg-6"
-                data-aos="zoom-in"
-                data-aos-duration={1000}
+            <div className="col-md-6 mb-3">
+              <input
+                type="text"
+                name="Phone"
+                placeholder="Phone"
+                className="form-control"
+                value={formData.Phone}
+                onChange={handleChange}
+              />
+              {errors.Phone && <p style={{ color: "red" }}>{errors.Phone}</p>}
+            </div>
+            <div className="col-md-12 mb-3">
+              <input
+                type="email"
+                name="Email"
+                placeholder="Email"
+                className="form-control"
+                value={formData.Email}
+                onChange={handleChange}
+              />
+              {errors.Email && <p style={{ color: "red" }}>{errors.Email}</p>}
+            </div>
+            <div className="col-md-12 mb-3">
+              <select
+                name="Subject"
+                className="form-control"
+                value={formData.Subject}
+                onChange={handleChange}
               >
-                <form onSubmit={handleSubmit} className="contact4-boxarea">
-                  <h3 className="text-anime-style-3">Get In Touch Now</h3>
-                  <div className="space8" />
-
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6">
-                      <div className="input-area">
-                        <input
-                          type="text"
-                          name="Name"
-                          placeholder="Name"
-                          value={formData.Name}
-                          onChange={handleChange}
-                        />
-                        {errors.Name && (
-                          <p style={{ color: "red" }}>{errors.Name}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6">
-                      <div className="input-area">
-                        <input
-                          type="text"
-                          name="Phone"
-                          placeholder="Phone"
-                          value={formData.Phone}
-                          onChange={handleChange}
-                        />
-                        {errors.Phone && (
-                          <p style={{ color: "red" }}>{errors.Phone}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-lg-12 col-md-6">
-                      <div className="input-area">
-                        <input
-                          type="email"
-                          name="Email"
-                          placeholder="Email"
-                          value={formData.Email}
-                          onChange={handleChange}
-                        />
-                        {errors.Email && (
-                          <p style={{ color: "red" }}>{errors.Email}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-lg-12 col-md-6">
-                      <div className="input-area">
-                        <select
-                          name="Subject"
-                          value={formData.Subject}
-                          onChange={handleChange}
-                          style={{
-                            width: "100%",
-                            padding: "10px",
-                            borderRadius: "4px",
-                            border: "1px solid #ccc",
-                          }}
-                        >
-                          <option value="">Select Service Required</option>
-                          <option value="Photography">Photography</option>
-                          <option value="Videography">Videography</option>
-                          <option value="Catering">Catering</option>
-                          <option value="Decor">Decor</option>
-                          <option value="Other">Other</option>
-                        </select>
-                        {errors.Subject && (
-                          <p style={{ color: "red" }}>{errors.Subject}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="input-area">
-                        <textarea
-                          name="Message"
-                          placeholder="Message"
-                          value={formData.Message}
-                          onChange={handleChange}
-                        />
-                        {errors.Message && (
-                          <p style={{ color: "red" }}>{errors.Message}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="space24" />
-                      <div className="input-area text-end">
-                        <button
-                          type="submit"
-                          className="vl-btn1"
-                          disabled={isSubmitting}
-                        >
-                          {isSubmitting ? "Sending..." : "Submit Now"}
-                        </button>
-                      </div>
-                      {message && (
-                        <p style={{ marginTop: "10px" }}>{message}</p>
-                      )}
-                    </div>
-                  </div>
-                </form>
-              </div>
+                <option value="">Select Service Required</option>
+                <option value="Photography">Photography</option>
+                <option value="Videography">Videography</option>
+                <option value="Catering">Catering</option>
+                <option value="Decor">Decor</option>
+                <option value="Other">Other</option>
+              </select>
+              {errors.Subject && <p style={{ color: "red" }}>{errors.Subject}</p>}
             </div>
-          </div>
-        </div>
-
-        {/* CONTACT INFO */}
-        <div className="contact2-bg-section">
-          <div className="img1">
-            <img
-              src="/assets/img/all-images/contact/contact-img1.png"
-              alt=""
-              className="contact-img1"
-            />
-          </div>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="space48" />
-                <div className="row">
-                  <div className="col-lg-6 col-md-6">
-                    <div
-                      className="contact-boxarea"
-                      data-aos="zoom-in"
-                      data-aos-duration={900}
-                    >
-                      <div className="icons">
-                        <img src="/assets/img/icons/mail1.svg" alt="" />
-                      </div>
-                      <div className="text">
-                        <h5>Our Email</h5>
-                        <div className="space14" />
-                        <Link
-                          href="mailto:Dreamauraevent@gmail.com"
-                          style={{ fontSize: "11px" }}
-                        >
-                          Dreamauraevent@gmail.com
-                        </Link>
-                      </div>
-                    </div>
-
-                    <div className="space18" />
-                    <div
-                      className="contact-boxarea"
-                      data-aos="zoom-in"
-                      data-aos-duration={1000}
-                    >
-                      <div className="icons">
-                        <img src="/assets/img/icons/location1.svg" alt="" />
-                      </div>
-                      <div className="text">
-                        <h5>Our Location</h5>
-                        <div className="space14" />
-                        <Link href="#">Chennai, India</Link>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-6 col-md-6">
-                    <div className="space30 d-md-none d-block" />
-                    <div
-                      className="contact-boxarea"
-                      data-aos="zoom-in"
-                      data-aos-duration={1000}
-                    >
-                      <div className="icons">
-                        <img src="/assets/img/icons/phn1.svg" alt="" />
-                      </div>
-                      <div className="text">
-                        <h5>Call/Message</h5>
-                        <div className="space14" />
-                        <Link href="tel:+917550277296" style={{ fontSize: "11px" }}>
-                          +91 75502 77296
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="space18" />
-                    <div
-                      className="contact-boxarea"
-                      data-aos="zoom-in"
-                      data-aos-duration={1200}
-                    >
-                      <div className="icons">
-                        <img src="/assets/img/icons/instagram.svg" alt="" />
-                      </div>
-                      <div className="text">
-                        <h5>Instagram</h5>
-                        <div className="space14" />
-                        <Link
-                          href="https://instagram.com/dreamaura.events"
-                          target="_blank"
-                        >
-                          dreamaura.events
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="col-md-12 mb-3">
+              <textarea
+                name="Message"
+                placeholder="Your Message"
+                className="form-control"
+                value={formData.Message}
+                onChange={handleChange}
+              />
+              {errors.Message && <p style={{ color: "red" }}>{errors.Message}</p>}
             </div>
-          </div>
-
-          {/* MAP */}
-          <div className="mapouter">
-            <div className="gmap_canvas">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.979751845173!2d80.22097707504944!3d13.06042288726337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267d1b8e8e8e9%3A0x7f8e8e8e8e8e8e8e!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1704088968016!5m2!1sen!2sin"
-                width={600}
-                height={450}
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div className="col-md-12 text-end">
+              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Submit Now"}
+              </button>
             </div>
-          </div>
+            {message && <p className="mt-3">{message}</p>}
+          </form>
         </div>
       </div>
     </Layout>
