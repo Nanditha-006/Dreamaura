@@ -88,11 +88,16 @@ export default function Contact() {
     setMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as Record<string, string>).toString(),
-      });
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxZoaQ99BTEn-hBmvlUMkvd6VLtjjZ5Kgp59gM9mLTTeJxxVoJBIxxMd1rf9H73_4c6pg/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -106,6 +111,7 @@ export default function Contact() {
         Subject: "",
         Message: "",
       });
+      setErrors({});
     } catch (error) {
       console.error("Error:", error);
       setMessage("❌ There was an error sending your message.");
