@@ -18,16 +18,19 @@ export default function BgSlider() {
   ];
 
   return (
-    <div style={{
-      position: 'absolute', // Changed from 'fixed' to 'absolute'
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      zIndex: -1,
-      overflow: 'hidden',
-    }}>
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        overflow: 'hidden',
+      }}
+    >
       <Swiper
+        modules={[Autoplay, EffectFade]}
         effect="fade"
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
@@ -43,7 +46,7 @@ export default function BgSlider() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                objectPosition: 'center'
+                objectPosition: 'center',
               }}
             />
           </SwiperSlide>
