@@ -5,7 +5,13 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 
 export default function Contact() {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = React.useState<{
+    Name: string;
+    Email: string;
+    Phone: string;
+    Subject: string;
+    Message: string;
+  }>({
     Name: "",
     Email: "",
     Phone: "",
@@ -13,11 +19,19 @@ export default function Contact() {
     Message: "",
   });
 
-  const [errors, setErrors] = React.useState({});
+  const [errors, setErrors] = React.useState<{
+    Name?: string;
+    Email?: string;
+    Phone?: string;
+    Subject?: string;
+    Message?: string;
+  }>({});
   const [message, setMessage] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -26,7 +40,13 @@ export default function Contact() {
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: {
+      Name?: string;
+      Email?: string;
+      Phone?: string;
+      Subject?: string;
+      Message?: string;
+    } = {};
     if (!formData.Name.trim()) {
       newErrors.Name = "Name is required";
     } else if (!/^[A-Za-z ]+$/.test(formData.Name.trim())) {
@@ -60,7 +80,7 @@ export default function Contact() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
 
@@ -68,13 +88,11 @@ export default function Contact() {
     setMessage("");
 
     try {
-      const response = await fetch(
-        "paste the deployement code",
-        {
-          method: "POST",
-          body: new URLSearchParams(formData),
-        }
-      );
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as Record<string, string>).toString(),
+      });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -355,9 +373,6 @@ export default function Contact() {
             </div>
           </div>
         </div>
-
-       
-
       </div>
     </Layout>
   );
